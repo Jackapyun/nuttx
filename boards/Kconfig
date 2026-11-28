@@ -124,6 +124,18 @@ config ARCH_BOARD_BL602EVB
 		This is the board configuration for the port of NuttX to the BouffaloLab BL602EVB
 		board.  This board features the RISC-V rv32imfc core
 
+config ARCH_BOARD_SPACEMIT_K1X_RCPU_MUSE_PI_PRO
+	bool "SpacemiT MUSE Pi Pro (K1 RCPU)"
+	depends on ARCH_CHIP_SPACEMIT_K1X_RCPU
+	---help---
+		This is the RCPU configuration for the SpacemiT MUSE Pi Pro, a
+		Key Stone K1 board.
+
+		It builds a firmware image for the K1 real-time CPU subsystem, not
+		for the eight X60 application cores.  The image is loaded into the
+		RCPU's private SRAM over JTAG; the board itself needs no boot media
+		for this because the application processor is not involved.
+
 config ARCH_BOARD_GD32VW553K_START
 	bool "GigaDevice GD32VW553K-START Board"
 	depends on ARCH_CHIP_GD32VW55X
@@ -4162,6 +4174,7 @@ config ARCH_BOARD
 	default "gd32f470zk-aiotbox"           if ARCH_BOARD_GD32F470ZK_AIOTBOX
 	default "gd32f470ik-eval"              if ARCH_BOARD_GD32F470IK_EVAL
 	default "gd32vw553k-start"             if ARCH_BOARD_GD32VW553K_START
+	default "muse-pi-pro"                  if ARCH_BOARD_SPACEMIT_K1X_RCPU_MUSE_PI_PRO
 	default "gd32vw553-hmq"                if ARCH_BOARD_GD32VW553_HMQ
 	default "hifive1-revb"                 if ARCH_BOARD_HIFIVE1_REVB
 	default "hymini-stm32v"                if ARCH_BOARD_HYMINI_STM32V
@@ -5701,6 +5714,9 @@ source "boards/risc-v/bl602/bl602evb/Kconfig"
 endif
 if ARCH_BOARD_GD32VW553K_START
 source "boards/risc-v/gd32vw55x/gd32vw553k-start/Kconfig"
+endif
+if ARCH_BOARD_SPACEMIT_K1X_RCPU_MUSE_PI_PRO
+source "boards/risc-v/spacemit-k1x-rcpu/muse-pi-pro/Kconfig"
 endif
 if ARCH_BOARD_GD32VW553_HMQ
 source "boards/risc-v/gd32vw55x/gd32vw553-hmq/Kconfig"
